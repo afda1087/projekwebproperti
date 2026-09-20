@@ -86,22 +86,21 @@ export default function Navbar() {
                         href="/properti"
                         className={pathname === '/properti' ? 'text-white font-bold' : 'text-slate-200 hover:text-white transition'}
                     >
-                        Alfa Ganteng ni bozz
+                        Properti
                     </Link>
 
                     <Link
                         href="/tentang"
                         className={pathname === '/tentang' ? 'text-white font-bold' : 'text-slate-200 hover:text-white transition'}
                     >
-                        irsyad gamtenk
-                        6
+                        tentang
                     </Link>
 
                     <Link
                         href="/galeri"
                         className={pathname === '/galeri' ? 'text-white font-bold' : 'text-slate-200 hover:text-white transition'}
                     >
-                        Afda Ganteng A day in my life
+                        galeri
                     </Link>
 
                     <Link
