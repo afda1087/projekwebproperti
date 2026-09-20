@@ -12,7 +12,8 @@ export default function Properti() {
     const [filterLokasi, setFilterLokasi] = useState('Semua Lokasi');
     const [filterHarga, setFilterHarga] = useState('Semua Harga');
     const [filterDp, setFilterDp] = useState('Semua DP');
-
+    // TAMBAHAN: State untuk filter Jenis Perumahan
+    const [filterJenis, setFilterJenis] = useState('Semua Jenis');
 
     // 3. LOGIKA FILTER & SORTING
     let processedData = [...properties];
@@ -44,7 +45,12 @@ export default function Properti() {
         }
     }
 
-    // --- D. Proses Sorting (Pengurutan) ---
+    // --- D. TAMBAHAN: Proses Filter Jenis Perumahan ---
+    if (filterJenis !== 'Semua Jenis') {
+        processedData = processedData.filter(prop => prop.jenis === filterJenis);
+    }
+
+    // --- E. Proses Sorting (Pengurutan) ---
     if (sortBy === 'Harga Terendah') {
         processedData.sort((a, b) => a.priceValue - b.priceValue);
     } else if (sortBy === 'Harga Tertinggi') {
@@ -52,13 +58,13 @@ export default function Properti() {
     } else if (sortBy === 'Luas Terbesar') {
         processedData.sort((a, b) => b.area - a.area);
     }
-    // (Jika 'Terbaru', data dibiarkan urut berdasarkan ID aslinya)
 
-    // Fungsi untuk mereset semua filter ke awal
+    // Fungsi untuk mereset semua filter ke awal (Diperbarui dengan reset filter Jenis)
     const handleReset = () => {
         setFilterLokasi('Semua Lokasi');
         setFilterHarga('Semua Harga');
         setFilterDp('Semua DP');
+        setFilterJenis('Semua Jenis');
         setSortBy('Terbaru');
     };
 
@@ -114,7 +120,8 @@ export default function Properti() {
                                 <button onClick={handleReset} className="text-sm text-blue-600 font-medium hover:text-blue-800 transition">Reset Semua</button>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {/* Diubah menjadi grid-cols-2 atau grid-cols-4 agar muat 4 filter */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                                 {/* Lokasi */}
                                 <div>
                                     <label className="block text-sm font-bold text-slate-800 mb-3">Lokasi</label>
@@ -159,6 +166,21 @@ export default function Properti() {
                                         <option>DP ≤ 10%</option>
                                     </select>
                                 </div>
+
+                                {/* TAMBAHAN: Jenis Perumahan */}
+                                <div>
+                                    <label className="block text-sm font-bold text-slate-800 mb-3">Jenis</label>
+                                    <select
+                                        value={filterJenis}
+                                        onChange={(e) => setFilterJenis(e.target.value)}
+                                        className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm text-slate-600 cursor-pointer"
+                                    >
+                                        <option>Semua Jenis</option>
+                                        <option>Subsidi</option>
+                                        <option>Menengah</option>
+                                        <option>Cluster</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     )}
@@ -181,8 +203,14 @@ export default function Properti() {
 
                                         <div className="h-48 relative overflow-hidden">
                                             <img src={prop.img} alt={prop.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-                                            <div className="absolute top-3 left-3 bg-[#cd9b57] text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
-                                                {prop.dp}
+                                            <div className="absolute top-3 left-3 flex gap-2">
+                                                <div className="bg-[#cd9b57] text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
+                                                    {prop.dp}
+                                                </div>
+                                                {/* TAMBAHAN: Badge Jenis Perumahan di atas Card */}
+                                                <div className="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
+                                                    {prop.jenis}
+                                                </div>
                                             </div>
                                             <button className="absolute top-3 right-3 bg-white p-2 rounded-full shadow-sm text-slate-400 hover:text-red-500 transition">
                                                 🤍
