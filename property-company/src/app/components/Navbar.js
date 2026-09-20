@@ -93,14 +93,14 @@ export default function Navbar() {
                         href="/tentang"
                         className={pathname === '/tentang' ? 'text-white font-bold' : 'text-slate-200 hover:text-white transition'}
                     >
-                        tentang
+                        Tentang
                     </Link>
 
                     <Link
                         href="/galeri"
                         className={pathname === '/galeri' ? 'text-white font-bold' : 'text-slate-200 hover:text-white transition'}
                     >
-                        galeri
+                        Galeri
                     </Link>
 
                     <Link

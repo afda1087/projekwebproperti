@@ -6,22 +6,24 @@ export default async function DetailProperti({ params }) {
     // 2. Tambahkan 'await' untuk membaca URL (Aturan baru Next.js 15)
     const resolvedParams = await params;
     const id = resolvedParams.id;
-    
+
     // Mencari data properti yang ID-nya sama dengan ID di URL
-    const properti = properties.find((p) => p.id === parseInt(id));
+    const properti = properties.find((p) => String(p.id) === String(id));
 
     // Jika properti tidak ditemukan
     if (!properti) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center bg-[#fafaf9]">
-                <h1 className="text-3xl font-bold text-slate-800 mb-4">Properti Tidak Ditemukan</h1>
+                <h1 className="text-3xl font-bold text-slate-800 mb-2">Properti Tidak Ditemukan</h1>
+                {/* Tambahan untuk melihat error ID jika masih gagal */}
+                <p className="mb-6 text-slate-500">ID yang dicari: {id || 'Kosong'}</p>
                 <Link href="/properti" className="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition">
                     Kembali ke Daftar Properti
                 </Link>
             </div>
         );
     }
-
+    
     return (
         <div className="bg-[#fafaf9] min-h-screen pt-32 pb-20">
             <div className="max-w-7xl mx-auto px-6">
