@@ -40,14 +40,11 @@ export default function Home() {
             </h1>
 
             <p className="text-blue-100 text-lg mb-10 max-w-lg animate-fade-in-up delay-300">
-              Cari rumah, apartemen, tanah, dan properti lainnya dengan mudah. Temukan penawaran terbaik hanya di MZ PROPERTI.
+              Cari rumah, apartemen, tanah, dan properti lainnya dengan mudah. Temukan penawaran terbaik hanya di IKAMARTI BAKAL.
             </p>
 
             <div className="animate-fade-in-up delay-500">
-              <Link
-                href="/properti"
-                className="inline-block bg-white text-blue-600 font-bold px-8 py-4 rounded-xl hover:bg-blue-800 hover:text-white hover:scale-105 transition duration-300 shadow-lg"
-              >
+              <Link href="/properti" className="inline-block bg-white text-blue-600 font-bold px-8 py-4 rounded-xl hover:bg-blue-800 hover:text-white hover:scale-105 transition duration-300 shadow-lg">
                 Jelajahi Sekarang
               </Link>
             </div>

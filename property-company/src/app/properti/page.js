@@ -38,10 +38,10 @@ export default function Properti() {
     if (filterDp !== 'Semua DP') {
         if (filterDp === 'DP 0%') {
             processedData = processedData.filter(prop => prop.dpValue === 0);
-        } else if (filterDp === 'DP ≤ 5%') {
-            processedData = processedData.filter(prop => prop.dpValue <= 5);
-        } else if (filterDp === 'DP ≤ 10%') {
-            processedData = processedData.filter(prop => prop.dpValue <= 10);
+        } else if (filterDp === 'DP kurang dari 5%') {
+            processedData = processedData.filter(prop => prop.dpValue <=5);
+        } else if (filterDp === 'DP lebih dari 10%') {
+            processedData = processedData.filter(prop => prop.dpValue >=10);
         }
     }
 
@@ -131,9 +131,10 @@ export default function Properti() {
                                         className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm text-slate-600 cursor-pointer"
                                     >
                                         <option>Semua Lokasi</option>
-                                        <option>Jakarta Timur</option>
-                                        <option>Jakarta Selatan</option>
-                                        <option>Depok</option>
+                                        <option>Lebo</option>
+                                        <option>Candiareng</option>
+                                        <option>Kandeman</option>
+                                
                                     </select>
                                 </div>
 
@@ -162,8 +163,8 @@ export default function Properti() {
                                     >
                                         <option>Semua DP</option>
                                         <option>DP 0%</option>
-                                        <option>DP ≤ 5%</option>
-                                        <option>DP ≤ 10%</option>
+                                        <option>DP kurang dari 5%</option>
+                                        <option>DP lebih dari 10%</option>
                                     </select>
                                 </div>
 
