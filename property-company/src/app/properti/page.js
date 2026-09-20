@@ -69,7 +69,7 @@ export default function Properti() {
     };
 
     return (
-        <div className="bg-[#fafaf9] min-h-screen pt-32 pb-20">
+        <div className="bg-[#F8F7F2] min-h-screen pt-32 pb-20">
             <div className="max-w-7xl mx-auto px-6">
 
                 {/* Header Section */}
