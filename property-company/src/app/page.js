@@ -18,7 +18,7 @@ export default function Home() {
           }}
         ></div>
 
-        {/* Ornamen Titik-titik Kanan (Dengan Animasi Fade-In) */}
+        {/* Ornamen Titik-titik Kanan (Dengan Animasi Fade-In)
         <div
           className="absolute top-0 right-0 w-full md:w-1/4 h-full pointer-events-none animate-fade-in-right delay-500"
           style={{
@@ -27,7 +27,7 @@ export default function Home() {
             maskImage: 'linear-gradient(to left, rgba(0,0,0,0.2), transparent)',
             WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,0.2), transparent)'
           }}
-        ></div>
+        ></div> */}
 
         {/* Kontainer Utama */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-2 gap-8 flex-1">

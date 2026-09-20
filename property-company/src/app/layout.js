@@ -2,7 +2,7 @@ import './globals.css';
 import Navbar from './components/Navbar'; // 1. Import komponen Navbar
 
 export const metadata = {
-  title: 'PROPERTIIN',
+  title: 'IKAMARTI BAKAL',
   description: 'Platform pencarian properti modern',
 };
 

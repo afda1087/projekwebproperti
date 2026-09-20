@@ -231,7 +231,7 @@ export default function Properti() {
                                                 <span className="flex items-center gap-1">🛁 {prop.baths}</span>
                                             </div>
 
-                                            <Link href={`/detail/${prop.id}`} className="mt-2 block w-full text-center py-2 text-sm font-bold text-slate-600 hover:text-slate-900 transition">
+                                            <Link href={`src/app/detail/${prop.id}`} className="mt-2 block w-full text-center py-2 text-sm font-bold text-slate-600 hover:text-slate-900 transition">
                                                 Lihat Detail
                                             </Link>
                                         </div>
