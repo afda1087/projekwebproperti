@@ -86,7 +86,7 @@ export default function Navbar() {
                         href="/properti"
                         className={pathname === '/properti' ? 'text-white font-bold' : 'text-slate-200 hover:text-white transition'}
                     >
-                        Properti
+                        Alfa Ganteng ni bozz
                     </Link>
 
                     <Link
