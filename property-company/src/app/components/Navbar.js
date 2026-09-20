@@ -100,7 +100,7 @@ export default function Navbar() {
                         href="/galeri"
                         className={pathname === '/galeri' ? 'text-white font-bold' : 'text-slate-200 hover:text-white transition'}
                     >
-                        Galeri
+                        Afda Ganteng A day in my life
                     </Link>
 
                     <Link
