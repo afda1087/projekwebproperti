@@ -47,7 +47,8 @@ export default function Properti() {
 
     // --- D. TAMBAHAN: Proses Filter Jenis Perumahan ---
     if (filterJenis !== 'Semua Jenis') {
-        processedData = processedData.filter(prop => prop.jenis === filterJenis);
+        // PERUBAHAN: Gunakan .includes() karena prop.jenis sekarang adalah Array
+        processedData = processedData.filter(prop => prop.jenis.includes(filterJenis));
     }
 
     // --- E. Proses Sorting (Pengurutan) ---

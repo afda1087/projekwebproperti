@@ -2,14 +2,14 @@
 export const properties = [
     {
         id: 1, title: "Prima Garden Lebo", location: "Lebo",
-        jenis: "Subsidi", // <--- INI TAMBAHANNYA
+        jenis: ["Subsidi","Menengah", "Cluster"], // <--- INI TAMBAHANNYA
         price: "Rp300 juta", priceValue: 300, dp: "DP 0%", dpValue: 0,
         beds: 2, baths: 1, area: 36, img: "rumahlebo.jpeg",
         description: "Perumahan subsdi dengan fasilitas lengekap dan harga terjangkay"
     },
     {
         id: 2, title: "Griya Cahaya Asri", location: "Candiareng",
-        jenis: "Menengah", // <--- INI TAMBAHANNYA
+        jenis: ["Subsidi","Menengah", "Cluster"], // <--- INI TAMBAHANNYA
         price: "Rp520 juta", priceValue: 520, dp: "DP 5%", dpValue: 5,
         beds: 3, baths: 2, area: 72, img: "rumahcandi.jpeg",
         description: "Candiareng dengan keindahan alamnya memiliki perumahan yang sama indahnya"
