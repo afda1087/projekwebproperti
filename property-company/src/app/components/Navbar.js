@@ -93,7 +93,8 @@ export default function Navbar() {
                         href="/tentang"
                         className={pathname === '/tentang' ? 'text-white font-bold' : 'text-slate-200 hover:text-white transition'}
                     >
-                        Tentang
+                        irsyad gamtenk
+                        6
                     </Link>
 
                     <Link
