@@ -179,6 +179,7 @@ export default function Properti() {
                                         <option>Subsidi</option>
                                         <option>Menengah</option>
                                         <option>Cluster</option>
+                                        <option>Mewah</option>
                                     </select>
                                 </div>
                             </div>
