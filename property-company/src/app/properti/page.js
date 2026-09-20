@@ -11,32 +11,39 @@ export default function Properti() {
     const [filterLokasi, setFilterLokasi] = useState('Semua Lokasi');
     const [filterHarga, setFilterHarga] = useState('Semua Harga');
     const [filterDp, setFilterDp] = useState('Semua DP');
+    // TAMBAHAN: State untuk filter Jenis Perumahan
+    const [filterJenis, setFilterJenis] = useState('Semua Jenis');
 
-    // 2. DATA PROPERTI (Ditambah data numerik 'priceValue' & 'dpValue' agar bisa dihitung mesin)
+    // 2. DATA PROPERTI (Ditambah properti 'jenis' untuk filter baru)
     const properties = [
         {
             id: 1, title: "Apartemen Studio Depok", location: "Margonda, Depok",
             price: "Rp300 juta", priceValue: 300, dp: "DP 0%", dpValue: 0,
+            jenis: "Subsidi", // Data contoh
             beds: 1, baths: 1, area: 24, img: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=500&q=80"
         },
         {
             id: 2, title: "Apartemen Kalibata", location: "Kalibata, Jakarta Selatan",
             price: "Rp520 juta", priceValue: 520, dp: "DP 5%", dpValue: 5,
+            jenis: "Menengah", // Data contoh
             beds: 1, baths: 1, area: 32, img: "https://images.unsplash.com/photo-1502672260266-1c1de24220e8?w=500&q=80"
         },
         {
             id: 3, title: "Rumah Minimalis Citra", location: "Cibubur, Jakarta Timur",
             price: "Rp980 juta", priceValue: 980, dp: "DP 0%", dpValue: 0,
+            jenis: "Cluster", // Data contoh
             beds: 3, baths: 2, area: 90, img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500&q=80"
         },
         {
             id: 4, title: "Rumah Mewah Jagakarsa", location: "Jagakarsa, Jakarta Selatan",
             price: "Rp1.5 Milyar", priceValue: 1500, dp: "DP 10%", dpValue: 10,
+            jenis: "Cluster", // Data contoh
             beds: 4, baths: 3, area: 150, img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=500&q=80"
         },
         {
             id: 5, title: "Townhouse Depok", location: "Cimanggis, Depok",
             price: "Rp450 juta", priceValue: 450, dp: "DP 5%", dpValue: 5,
+            jenis: "Menengah", // Data contoh
             beds: 2, baths: 1, area: 60, img: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=500&q=80"
         }
     ];
@@ -71,7 +78,12 @@ export default function Properti() {
         }
     }
 
-    // --- D. Proses Sorting (Pengurutan) ---
+    // --- D. TAMBAHAN: Proses Filter Jenis Perumahan ---
+    if (filterJenis !== 'Semua Jenis') {
+        processedData = processedData.filter(prop => prop.jenis === filterJenis);
+    }
+
+    // --- E. Proses Sorting (Pengurutan) ---
     if (sortBy === 'Harga Terendah') {
         processedData.sort((a, b) => a.priceValue - b.priceValue);
     } else if (sortBy === 'Harga Tertinggi') {
@@ -79,13 +91,13 @@ export default function Properti() {
     } else if (sortBy === 'Luas Terbesar') {
         processedData.sort((a, b) => b.area - a.area);
     }
-    // (Jika 'Terbaru', data dibiarkan urut berdasarkan ID aslinya)
 
-    // Fungsi untuk mereset semua filter ke awal
+    // Fungsi untuk mereset semua filter ke awal (Diperbarui dengan reset filter Jenis)
     const handleReset = () => {
         setFilterLokasi('Semua Lokasi');
         setFilterHarga('Semua Harga');
         setFilterDp('Semua DP');
+        setFilterJenis('Semua Jenis');
         setSortBy('Terbaru');
     };
 
@@ -141,7 +153,8 @@ export default function Properti() {
                                 <button onClick={handleReset} className="text-sm text-blue-600 font-medium hover:text-blue-800 transition">Reset Semua</button>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {/* Diubah menjadi grid-cols-2 atau grid-cols-4 agar muat 4 filter */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                                 {/* Lokasi */}
                                 <div>
                                     <label className="block text-sm font-bold text-slate-800 mb-3">Lokasi</label>
@@ -186,6 +199,21 @@ export default function Properti() {
                                         <option>DP ≤ 10%</option>
                                     </select>
                                 </div>
+
+                                {/* TAMBAHAN: Jenis Perumahan */}
+                                <div>
+                                    <label className="block text-sm font-bold text-slate-800 mb-3">Jenis</label>
+                                    <select
+                                        value={filterJenis}
+                                        onChange={(e) => setFilterJenis(e.target.value)}
+                                        className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm text-slate-600 cursor-pointer"
+                                    >
+                                        <option>Semua Jenis</option>
+                                        <option>Subsidi</option>
+                                        <option>Menengah</option>
+                                        <option>Cluster</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     )}
@@ -208,8 +236,14 @@ export default function Properti() {
 
                                         <div className="h-48 relative overflow-hidden">
                                             <img src={prop.img} alt={prop.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-                                            <div className="absolute top-3 left-3 bg-[#cd9b57] text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
-                                                {prop.dp}
+                                            <div className="absolute top-3 left-3 flex gap-2">
+                                                <div className="bg-[#cd9b57] text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
+                                                    {prop.dp}
+                                                </div>
+                                                {/* TAMBAHAN: Badge Jenis Perumahan di atas Card */}
+                                                <div className="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
+                                                    {prop.jenis}
+                                                </div>
                                             </div>
                                             <button className="absolute top-3 right-3 bg-white p-2 rounded-full shadow-sm text-slate-400 hover:text-red-500 transition">
                                                 🤍
