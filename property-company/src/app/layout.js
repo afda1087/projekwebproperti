@@ -5,6 +5,7 @@ import { WishlistProvider } from './context/wishlistcontext'; // 2. Import Wishl
 export const metadata = {
   title: 'IKAMARTI BAKAL',
   description: 'Platform pencarian properti modern',
+  icon: '/logo.png', // Sesuaikan dengan nama file logo Anda
 };
 
 export default function RootLayout({ children }) {

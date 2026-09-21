@@ -62,7 +62,7 @@ export function useWishlist() {
   if (!context) {
     return {
       wishlist: [],
-      toggleWishlist: () => {},
+      toggleWishlist: () => { },
       isWishlisted: () => false,
     };
   }
