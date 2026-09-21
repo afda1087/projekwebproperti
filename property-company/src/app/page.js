@@ -40,7 +40,7 @@ export default function Home() {
             </h1>
 
             <p className="text-blue-100 text-lg mb-10 max-w-lg animate-fade-in-up delay-300">
-              Cari rumah, apartemen, tanah, dan properti lainnya dengan mudah. Temukan penawaran terbaik hanya di IKAMARTI BAKAL.
+              Pusat informasi dan pemesanan perumahan terlengkap di Pekalongan dan Batang. Temukan rumah masa depanmu hanya di IKAMARTI BAKAL.
             </p>
 
             <div className="animate-fade-in-up delay-500">
