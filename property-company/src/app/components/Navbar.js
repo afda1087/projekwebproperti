@@ -107,12 +107,12 @@ export default function Navbar() {
                     </Link>
 
                     {/* Tombol Wishlist Desktop */}
-                    <Link
+                    {/* <Link
                         href="/wishlist"
                         className="flex items-center gap-2 rounded-md px-4 py-2 font-bold transition bg-white text-blue-600 hover:bg-blue-50 shadow-sm"
                     >
                         {/* Ikon Hati / Love */}
-                        <svg
+                        {/* <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-5 w-5 text-red-500 fill-current"
                             viewBox="0 0 20 20"
@@ -127,12 +127,12 @@ export default function Navbar() {
                         <span>Wishlist</span>
 
                         {/* Badge Angka Jumlah Wishlist */}
-                        {wishlist.length > 0 && (
+                        {/* {wishlist.length > 0 && (
                             <span className="bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center ml-0.5 shadow-sm">
                                 {wishlist.length}
                             </span>
-                        )}
-                    </Link>
+                        )} */}
+                    {/* /</Link> */} 
                 </div>
 
                 {/* TOMBOL HAMBURGER MOBILE */}

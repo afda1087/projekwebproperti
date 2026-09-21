@@ -91,8 +91,9 @@ export default function PropertiPage() {
         </div>
 
         <div className="flex flex-col gap-6">
-          {/* TOP BAR: Filter Toggle & Sorting */}
+          {/* TOP BAR: Filter Toggle & (Wishlist + Sorting) */}
           <div className="flex flex-wrap justify-between items-center gap-4 animate-fade-in-up delay-300">
+            {/* Tombol Filter di Kiri */}
             <button
               onClick={() => setIsFilterOpen(!isFilterOpen)}
               className="flex items-center gap-2 bg-white px-5 py-2.5 border border-slate-200 rounded-xl shadow-sm text-sm font-bold text-slate-700 hover:bg-slate-50 transition"
@@ -122,18 +123,48 @@ export default function PropertiPage() {
               {isFilterOpen ? "Tutup Filter" : "Filter Properti"}
             </button>
 
-            <div className="flex items-center gap-2 bg-white px-4 py-2 border border-slate-200 rounded-xl shadow-sm">
-              <span className="text-sm text-slate-400">Urutkan:</span>
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="bg-transparent border-none focus:outline-none text-sm font-semibold text-slate-700 cursor-pointer"
+            {/* Container Kanan: Tombol Wishlist & Dropdown Urutkan */}
+            <div className="flex items-center gap-3">
+              {/* Tombol Wishlist Baru */}
+              <Link
+                href="/wishlist"
+                className="flex items-center gap-2 bg-white px-4 py-2 border border-slate-200 rounded-xl shadow-sm text-sm font-bold text-slate-700 hover:bg-slate-50 transition"
               >
-                <option>Terbaru</option>
-                <option>Harga Terendah</option>
-                <option>Harga Tertinggi</option>
-                <option>Luas Terbesar</option>
-              </select>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-red-500 fill-current"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                <span>Wishlist</span>
+
+                {wishlist.length > 0 && (
+                  <span className="bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center shadow-sm">
+                    {wishlist.length}
+                  </span>
+                )}
+              </Link>
+
+              {/* Dropdown Urutkan */}
+              <div className="flex items-center gap-2 bg-white px-4 py-2 border border-slate-200 rounded-xl shadow-sm">
+                <span className="text-sm text-slate-400">Urutkan:</span>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="bg-transparent border-none focus:outline-none text-sm font-semibold text-slate-700 cursor-pointer"
+                >
+                  <option>Terbaru</option>
+                  <option>Harga Terendah</option>
+                  <option>Harga Tertinggi</option>
+                  <option>Luas Terbesar</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -247,7 +278,7 @@ export default function PropertiPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
                 {processedData.map((prop) => {
                   const isWishlisted = wishlist.some(
-                    (item) => item.id === prop.id
+                    (item) => String(item.id) === String(prop.id)
                   );
 
                   return (
@@ -279,8 +310,8 @@ export default function PropertiPage() {
 
                         <button
                           onClick={(e) => {
-                            e.preventDefault();   // Mencegah navigasi bawaan jika card berupa <Link>
-                            e.stopPropagation();  // Mencegah trigger event ke elemen di luarnya
+                            e.preventDefault();
+                            e.stopPropagation();
                             toggleWishlist(prop);
                           }}
                           className="absolute top-3 right-3 bg-white p-2 rounded-full shadow-sm text-slate-400 hover:text-red-500 transition"
