@@ -47,7 +47,8 @@ export default function Properti() {
 
     // --- D. TAMBAHAN: Proses Filter Jenis Perumahan ---
     if (filterJenis !== 'Semua Jenis') {
-        processedData = processedData.filter(prop => prop.jenis === filterJenis);
+        // PERUBAHAN: Gunakan .includes() karena prop.jenis sekarang adalah Array
+        processedData = processedData.filter(prop => prop.jenis.includes(filterJenis));
     }
 
     // --- E. Proses Sorting (Pengurutan) ---
@@ -69,7 +70,7 @@ export default function Properti() {
     };
 
     return (
-        <div className="bg-[#fafaf9] min-h-screen pt-32 pb-20">
+        <div className="bg-[#F8F7F2] min-h-screen pt-32 pb-20">
             <div className="max-w-7xl mx-auto px-6">
 
                 {/* Header Section */}
