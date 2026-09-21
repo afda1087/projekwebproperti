@@ -46,8 +46,8 @@ export default function PropertiPage() {
       processedData = processedData.filter((prop) => prop.dpValue === 0);
     } else if (filterDp === "DP kurang dari 5%") {
       processedData = processedData.filter((prop) => prop.dpValue <= 5);
-    } else if (filterDp === "DP lebih dari 10%") {
-      processedData = processedData.filter((prop) => prop.dpValue >= 10);
+    } else if (filterDp === "DP lebih dari 5%") {
+      processedData = processedData.filter((prop) => prop.dpValue > 5);
     }
   }
 
@@ -164,6 +164,7 @@ export default function PropertiPage() {
                     className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm text-slate-600 cursor-pointer"
                   >
                     <option>Semua Lokasi</option>
+                    <option>Batang</option>
                     <option>Lebo</option>
                     <option>Candiareng</option>
                     <option>Kandeman</option>
@@ -200,7 +201,7 @@ export default function PropertiPage() {
                     <option>Semua DP</option>
                     <option>DP 0%</option>
                     <option>DP kurang dari 5%</option>
-                    <option>DP lebih dari 10%</option>
+                    <option>DP lebih dari 5%</option>
                   </select>
                 </div>
 
