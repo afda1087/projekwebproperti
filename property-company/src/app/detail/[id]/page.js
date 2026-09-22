@@ -136,10 +136,13 @@ export default async function DetailProperti({ params }) {
                                 <button className="w-full bg-[#102A43] text-white font-bold py-3.5 rounded-xl hover:bg-slate-800 transition flex items-center justify-center gap-2 shadow-md">
                                     💬 Chat Agen Sekarang
                                 </button>
+<<<<<<< HEAD
 
                                 <button className="w-full mt-2 bg-slate-50 text-slate-600 font-bold py-3 rounded-xl hover:bg-slate-100 transition flex items-center justify-center gap-2">
                                     🤍 Simpan ke Wishlist
                                 </button>
+=======
+>>>>>>> 98df57ed0c8d29c79e6fb4559f239a53a3509fb7
                             </div>
 
                         </div>
