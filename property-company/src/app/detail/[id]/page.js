@@ -63,7 +63,7 @@ export default async function DetailProperti({ params }) {
 
                         <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-6 gap-4">
                             <div>
-                                <span className="inline-block bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-md mb-3">Dijual</span>
+                                
                                 {/* Nama & Lokasi Dinamis */}
                                 <h1 className="text-3xl font-bold text-slate-900 mb-2">{properti.title}</h1>
                                 <p className="text-slate-500 text-lg">📍 {properti.location}</p>
@@ -117,9 +117,7 @@ export default async function DetailProperti({ params }) {
                                 <div className="w-24 h-24 bg-blue-50 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl shadow-inner">👨‍💼</div>
                                 <h4 className="font-bold text-xl text-slate-900">Budi Santoso</h4>
                                 <p className="text-sm text-slate-500 mb-2">Agen Properti MZ Properti</p>
-                                <div className="flex items-center justify-center gap-1 text-yellow-400 text-sm">
-                                    ⭐⭐⭐⭐⭐ <span className="text-slate-400 ml-1 font-medium">(45 Ulasan)</span>
-                                </div>
+                                
                             </div>
 
                             {/* Tombol Aksi */}
@@ -127,9 +125,7 @@ export default async function DetailProperti({ params }) {
                                 <button className="w-full bg-[#102A43] text-white font-bold py-3.5 rounded-xl hover:bg-slate-800 transition flex items-center justify-center gap-2 shadow-md">
                                     💬 Chat Agen Sekarang
                                 </button>
-                                <button className="w-full bg-white border-2 border-[#102A43] text-[#102A43] font-bold py-3 rounded-xl hover:bg-slate-50 transition flex items-center justify-center gap-2">
-                                    📅 Jadwalkan Survey
-                                </button>
+                                
                                 <button className="w-full mt-2 bg-slate-50 text-slate-600 font-bold py-3 rounded-xl hover:bg-slate-100 transition flex items-center justify-center gap-2">
                                     🤍 Simpan ke Wishlist
                                 </button>
