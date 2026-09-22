@@ -23,7 +23,7 @@ export default async function DetailProperti({ params }) {
             </div>
         );
     }
-    
+
     return (
         <div className="bg-[#fafaf9] min-h-screen pt-32 pb-20">
             <div className="max-w-7xl mx-auto px-6">
@@ -63,10 +63,16 @@ export default async function DetailProperti({ params }) {
 
                         <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-6 gap-4">
                             <div>
-                                
+
                                 {/* Nama & Lokasi Dinamis */}
                                 <h1 className="text-3xl font-bold text-slate-900 mb-2">{properti.title}</h1>
-                                <p className="text-slate-500 text-lg">📍 {properti.location}</p>
+                                <div className="flex items-center gap-1.5 text-slate-500 text-lg">
+                                    {/* Ikon Map Pin ala Google Maps */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-black">
+                                        <path fillRule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
+                                    </svg>
+                                    <span>{properti.location}</span>
+                                </div>
                             </div>
                             {/* Harga Dinamis */}
                             <h2 className="text-3xl font-bold text-blue-600 md:text-right">{properti.price}</h2>
@@ -114,10 +120,15 @@ export default async function DetailProperti({ params }) {
 
                             {/* Profil Agen */}
                             <div className="text-center mb-6">
-                                <div className="w-24 h-24 bg-blue-50 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl shadow-inner">👨‍💼</div>
-                                <h4 className="font-bold text-xl text-slate-900">Budi Santoso</h4>
-                                <p className="text-sm text-slate-500 mb-2">Agen Properti MZ Properti</p>
-                                
+                                <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden shadow-md border-4 border-white">
+                                    <img
+                                        src="/zubaidin.png"
+                                        alt="Profil Agen Zubaidin"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div><h4 className="font-bold text-xl text-slate-900">ZUBAIDIN</h4>
+                                <p className="text-sm text-slate-500 mb-2">Agen Properi IKAMARTI BAKAL</p>
+
                             </div>
 
                             {/* Tombol Aksi */}
@@ -125,7 +136,7 @@ export default async function DetailProperti({ params }) {
                                 <button className="w-full bg-[#102A43] text-white font-bold py-3.5 rounded-xl hover:bg-slate-800 transition flex items-center justify-center gap-2 shadow-md">
                                     💬 Chat Agen Sekarang
                                 </button>
-                                
+
                                 <button className="w-full mt-2 bg-slate-50 text-slate-600 font-bold py-3 rounded-xl hover:bg-slate-100 transition flex items-center justify-center gap-2">
                                     🤍 Simpan ke Wishlist
                                 </button>
