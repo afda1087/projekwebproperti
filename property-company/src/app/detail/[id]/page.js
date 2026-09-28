@@ -1,22 +1,24 @@
+"use client";
+
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { properties } from '../../data'; // Memanggil database buatan kita
+import { properties } from '../../data'; 
 
-// 1. Tambahkan kata 'async' di sini
-export default async function DetailProperti({ params }) {
-    // 2. Tambahkan 'await' untuk membaca URL (Aturan baru Next.js 15)
-    const resolvedParams = await params;
+export default function DetailProperti({ params }) {
+    // Di Next.js 15 Client Component, params harus di-*unwrap* menggunakan React.use()
+    const resolvedParams = React.use(params);
     const id = resolvedParams.id;
+    
+    // State untuk mengontrol munculnya popup Siteplan
+    const [showSiteplan, setShowSiteplan] = useState(false);
 
-    // Mencari data properti yang ID-nya sama dengan ID di URL
+    // Mencari data properti
     const properti = properties.find((p) => String(p.id) === String(id));
 
-    // Jika properti tidak ditemukan
     if (!properti) {
         return (
-            <div className="min-h-screen flex flex-col items-center justify-center bg-[#fafaf9]">
+            <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50">
                 <h1 className="text-3xl font-bold text-slate-800 mb-2">Properti Tidak Ditemukan</h1>
-                {/* Tambahan untuk melihat error ID jika masih gagal */}
-                <p className="mb-6 text-slate-500">ID yang dicari: {id || 'Kosong'}</p>
                 <Link href="/properti" className="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition">
                     Kembali ke Daftar Properti
                 </Link>
@@ -25,131 +27,181 @@ export default async function DetailProperti({ params }) {
     }
 
     return (
-        <div className="bg-[#fafaf9] min-h-screen pt-32 pb-20">
-            <div className="max-w-7xl mx-auto px-6">
-
-                {/* Breadcrumb / Tombol Kembali */}
-                <div className="mb-6 animate-fade-in-up delay-100">
-                    <Link href="/properti" className="text-blue-600 hover:underline font-bold text-sm flex items-center gap-2 w-max">
-                        &larr; Kembali ke Pencarian
-                    </Link>
+        <div className="bg-white min-h-screen pb-20">
+            
+            {/* 1. HERO SECTION (Referensi: Image 8) */}
+            <div className="relative w-full h-[400px] md:h-[500px] mt-16 md:mt-20">
+                {/* Background Image dengan Overlay */}
+                <div className="absolute inset-0">
+                    <img src={`/${properti.img}`} alt={properti.title} className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-white/70 md:bg-white/50 backdrop-blur-sm"></div>
                 </div>
 
-                {/* 1. GALLERY SECTION */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 animate-fade-in-up delay-300">
-                    {/* Foto Utama (Mengambil dari data) */}
-                    <div className="md:col-span-2 h-[400px] bg-slate-200 rounded-2xl overflow-hidden shadow-sm group">
-                        <img src={properti.img} alt={properti.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-                    </div>
-                    {/* Foto Samping (Sementara pakai foto yang sama sebagai ilustrasi) */}
-                    <div className="flex flex-col gap-4">
-                        <div className="h-[192px] bg-slate-200 rounded-2xl overflow-hidden shadow-sm">
-                            <img src={properti.img} alt="Ruangan" className="w-full h-full object-cover" />
-                        </div>
-                        <div className="h-[192px] bg-slate-200 rounded-2xl relative cursor-pointer hover:opacity-90 transition overflow-hidden shadow-sm">
-                            <img src={properti.img} alt="Ruangan" className="w-full h-full object-cover" />
-                            <div className="absolute inset-0 bg-slate-900/60 flex items-center justify-center backdrop-blur-sm">
-                                <span className="text-white font-bold text-lg">+5 Foto Lainnya</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* 2. MAIN CONTENT & SIDEBAR */}
-                <div className="flex flex-col md:flex-row gap-10 animate-fade-in-up delay-500">
-
-                    {/* Kolom Kiri: Detail Properti */}
-                    <div className="w-full md:w-2/3">
-
-                        <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-6 gap-4">
-                            <div>
-
-                                {/* Nama & Lokasi Dinamis */}
-                                <h1 className="text-3xl font-bold text-slate-900 mb-2">{properti.title}</h1>
-                                <div className="flex items-center gap-1.5 text-slate-500 text-lg">
-                                    {/* Ikon Map Pin ala Google Maps */}
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-black">
-                                        <path fillRule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
-                                    </svg>
-                                    <span>{properti.location}</span>
-                                </div>
-                            </div>
-                            {/* Harga Dinamis */}
-                            <h2 className="text-3xl font-bold text-blue-600 md:text-right">{properti.price}</h2>
-                        </div>
-
-                        {/* Statistik Singkat (Dinamis) */}
-                        <div className="flex flex-wrap gap-4 bg-white border border-slate-200 rounded-xl p-6 mb-8 shadow-sm">
-                            <div className="flex-1 min-w-[120px] flex items-center gap-3">
-                                <span className="text-2xl bg-blue-50 text-blue-600 p-3 rounded-lg shadow-sm">🛏️</span>
-                                <div><p className="text-xs text-slate-500 font-bold uppercase">Kamar Tidur</p><p className="font-bold text-slate-900 text-lg">{properti.beds}</p></div>
-                            </div>
-                            <div className="flex-1 min-w-[120px] flex items-center gap-3">
-                                <span className="text-2xl bg-blue-50 text-blue-600 p-3 rounded-lg shadow-sm">🛁</span>
-                                <div><p className="text-xs text-slate-500 font-bold uppercase">Kamar Mandi</p><p className="font-bold text-slate-900 text-lg">{properti.baths}</p></div>
-                            </div>
-                            <div className="flex-1 min-w-[120px] flex items-center gap-3">
-                                <span className="text-2xl bg-blue-50 text-blue-600 p-3 rounded-lg shadow-sm">📐</span>
-                                <div><p className="text-xs text-slate-500 font-bold uppercase">Luas Bangunan</p><p className="font-bold text-slate-900 text-lg">{properti.area} m²</p></div>
-                            </div>
-                            <div className="flex-1 min-w-[120px] flex items-center gap-3">
-                                <span className="text-2xl bg-yellow-50 text-yellow-600 p-3 rounded-lg shadow-sm">🏷️</span>
-                                <div><p className="text-xs text-slate-500 font-bold uppercase">Uang Muka</p><p className="font-bold text-slate-900 text-lg">{properti.dp}</p></div>
-                            </div>
-                        </div>
-
-                        {/* Deskripsi (Dinamis) */}
-                        <h3 className="text-xl font-bold text-slate-900 mb-4">Deskripsi Properti</h3>
-                        <div className="text-slate-600 leading-relaxed mb-8 space-y-4 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                            <p>{properti.description}</p>
-                        </div>
-
-                        {/* Fasilitas (Statis untuk contoh) */}
-                        <h3 className="text-xl font-bold text-slate-900 mb-4">Fasilitas & Fitur</h3>
-                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-slate-700 mb-8 bg-white border border-slate-200 p-6 rounded-xl shadow-sm">
-                            <li className="flex items-center gap-3"><span className="text-green-500 text-lg">✅</span> Carport 2 Mobil</li>
-                            <li className="flex items-center gap-3"><span className="text-green-500 text-lg">✅</span> Taman Hijau</li>
-                            <li className="flex items-center gap-3"><span className="text-green-500 text-lg">✅</span> Ruang Keluarga Luas</li>
-                            <li className="flex items-center gap-3"><span className="text-green-500 text-lg">✅</span> Keamanan 24 Jam</li>
-                        </ul>
+                {/* Konten Hero */}
+                <div className="relative max-w-7xl mx-auto px-6 h-full flex flex-col md:flex-row justify-between items-start md:items-center pt-10 md:pt-0">
+                    <div>
+                        <Link href="/properti" className="text-slate-800 hover:text-blue-600 font-bold text-sm flex items-center gap-2 mb-4">
+                            &larr; Kembali
+                        </Link>
+                        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-2">{properti.title}</h1>
+                        <p className="text-sm text-slate-700 font-semibold mb-1">ID Lokasi: SPA2720062026T001</p>
+                        <p className="text-sm text-slate-700 mb-1 uppercase">{properti.location}</p>
+                        <p className="text-sm text-slate-700 font-bold">PT BUMI CITRA MANDIRI (REI)</p>
                     </div>
 
-                    {/* Kolom Kanan: Agent Sidebar */}
-                    <div className="w-full md:w-1/3">
-                        <div className="bg-white border border-slate-200 rounded-2xl p-6 sticky top-28 shadow-lg shadow-slate-100">
-
-                            {/* Profil Agen */}
-                            <div className="text-center mb-6">
-                                <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden shadow-md border-4 border-white">
-                                    <img
-                                        src="/zubaidin.png"
-                                        alt="Profil Agen Zubaidin"
-                                        className="w-full h-full object-cover"
-                                    />
-                                </div><h4 className="font-bold text-xl text-slate-900">ZUBAIDIN</h4>
-                                <p className="text-sm text-slate-500 mb-2">Agen Properi IKAMARTI BAKAL</p>
-
-                            </div>
-
-                            {/* Tombol Aksi */}
-                            <div className="flex flex-col gap-3">
-                                <button className="w-full bg-[#102A43] text-white font-bold py-3.5 rounded-xl hover:bg-slate-800 transition flex items-center justify-center gap-2 shadow-md">
-                                    💬 Chat Agen Sekarang
-                                </button>
-<<<<<<< HEAD
-
-                                <button className="w-full mt-2 bg-slate-50 text-slate-600 font-bold py-3 rounded-xl hover:bg-slate-100 transition flex items-center justify-center gap-2">
-                                    🤍 Simpan ke Wishlist
-                                </button>
-=======
->>>>>>> 98df57ed0c8d29c79e6fb4559f239a53a3509fb7
-                            </div>
-
+                    <div className="mt-8 md:mt-0 text-left md:text-right bg-white/90 p-6 rounded-xl shadow-lg border border-slate-200">
+                        <h3 className="font-bold text-lg text-slate-800 mb-2">Status Rumah</h3>
+                        <div className="text-sm text-slate-600 mb-4 space-y-1">
+                            <p>Subsidi : <span className="font-bold text-slate-900">111 Unit</span></p>
+                            <p>Terjual Subsidi : <span className="font-bold text-slate-900">0 Unit</span></p>
+                            <p>Komersil : <span className="font-bold text-slate-900">0 Unit</span></p>
+                            <p>Terjual Komersil : <span className="font-bold text-slate-900">0 Unit</span></p>
                         </div>
+                        <button 
+                            onClick={() => setShowSiteplan(true)}
+                            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2.5 px-6 rounded shadow-md transition w-full md:w-auto"
+                        >
+                            Lihat Siteplan Digital
+                        </button>
                     </div>
-
                 </div>
             </div>
+
+            <div className="max-w-7xl mx-auto px-6 mt-10">
+                {/* 2. PETA & FOTO LOKASI (Referensi: Image 8) */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 border-b border-slate-200 pb-12">
+                    <div className="md:col-span-1">
+                        <h3 className="font-bold text-lg border-b-2 border-blue-500 inline-block mb-4">Peta Lokasi</h3>
+                        <div className="bg-slate-200 h-48 rounded-lg flex items-center justify-center text-slate-500 shadow-inner">
+                            [Embed Google Maps]
+                        </div>
+                    </div>
+                    <div className="md:col-span-3">
+                        <h3 className="font-bold text-lg mb-4">Foto Lokasi</h3>
+                        <div className="flex gap-4 overflow-x-auto pb-4">
+                            <img src={`/${properti.img}`} className="h-48 w-64 object-cover rounded-lg border border-slate-200 shadow-sm flex-shrink-0" alt="Foto Gerbang" />
+                            <img src={`/${properti.img}`} className="h-48 w-64 object-cover rounded-lg border border-slate-200 shadow-sm flex-shrink-0" alt="Foto Lingkungan" />
+                            <img src={`/${properti.img}`} className="h-48 w-64 object-cover rounded-lg border border-slate-200 shadow-sm flex-shrink-0" alt="Foto Jalan" />
+                        </div>
+                    </div>
+                </div>
+
+                {/* 3. KONTAK & SPESIFIKASI (Referensi: Image 7) */}
+                <div className="flex flex-col md:flex-row gap-12">
+                    {/* Sidebar Kontak */}
+                    <div className="w-full md:w-1/4">
+                        <div className="text-sm text-slate-700 space-y-2 sticky top-24">
+                            <p className="font-bold uppercase mb-4">JL RAYA CIGALONTANG PERUMAHAN {properti.title.toUpperCase()} {properti.location.toUpperCase()}</p>
+                            <p><strong>Telp :</strong> 082317463800</p>
+                            <p><strong>Email :</strong> dev@perumahan.com</p>
+                            <p><strong>Website :</strong> {properti.title}</p>
+                            <p><strong>No Whatsapp :</strong> 6282317463800</p>
+                            <button className="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded w-full flex items-center justify-center gap-2">
+                                WhatsApp Kantor Pemasaran
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Area Tipe Rumah & Denah */}
+                    <div className="w-full md:w-3/4">
+                        <h2 className="text-2xl font-normal text-slate-800 mb-6 border-b pb-2">Tipe Rumah</h2>
+                        
+                        <div className="mb-10">
+                            <h3 className="text-lg text-slate-700 mb-4">1. Tipe {properti.area} (subsidi)</h3>
+                            
+                            <div className="flex flex-col md:flex-row gap-6 mb-6">
+                                {/* Foto Rumah */}
+                                <div className="w-full md:w-1/3">
+                                    <img src={`/${properti.img}`} alt="Fasad Rumah" className="w-full h-auto object-cover border rounded" />
+                                </div>
+                                {/* Denah */}
+                                <div className="w-full md:w-1/3">
+                                    <div className="w-full h-48 bg-blue-50 border-2 border-blue-400 rounded flex items-center justify-center text-blue-800 font-bold p-4 text-center">
+                                        [Ilustrasi Denah {properti.area} m²]
+                                    </div>
+                                </div>
+                                {/* Harga & Info Singkat */}
+                                <div className="w-full md:w-1/3 text-sm text-slate-700 space-y-1">
+                                    <p>Harga: <span className="font-bold">{properti.price}</span></p>
+                                    <p>Luas Bangunan: {properti.area} m²</p>
+                                    <p>Luas Lahan: 66m²</p>
+                                    <p>Kamar Tidur: {properti.beds}</p>
+                                    <p>Kamar Mandi: {properti.baths}</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 className="text-sm font-bold text-slate-800 mb-2">Spesifikasi Teknis</h4>
+                                <div className="text-sm text-slate-600 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div><span className="font-semibold block">a. Atap</span>Bajaringan</div>
+                                    <div><span className="font-semibold block">b. Dinding</span>Bata Hebel</div>
+                                    <div><span className="font-semibold block">c. Lantai & Pondasi</span>Keramik & Batu Belah</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* 4. MODAL SITEPLAN (Referensi: Image 6) */}
+            {showSiteplan && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+                    <div className="bg-white w-full max-w-6xl h-[90vh] rounded-xl shadow-2xl flex flex-col md:flex-row overflow-hidden relative">
+                        
+                        {/* Tombol Close Modal */}
+                        <button 
+                            onClick={() => setShowSiteplan(false)}
+                            className="absolute top-4 right-4 z-10 bg-white border border-slate-300 w-10 h-10 rounded-full flex items-center justify-center text-slate-500 hover:text-red-500 hover:bg-red-50 font-bold text-xl shadow"
+                        >
+                            &times;
+                        </button>
+
+                        {/* Sidebar Legenda Kiri */}
+                        <div className="w-full md:w-1/4 bg-slate-50 border-r border-slate-200 p-6 overflow-y-auto">
+                            <h2 className="text-xl font-bold text-slate-800 mb-1">{properti.title}</h2>
+                            <p className="text-xs text-slate-500 mb-6">{properti.location}</p>
+
+                            <div className="flex gap-2 mb-6 text-center text-xs font-bold text-slate-600">
+                                <div className="flex-1 bg-slate-200 p-2 rounded">KOMERSIL</div>
+                                <div className="flex-1 bg-yellow-100 p-2 rounded">SUBSIDI</div>
+                            </div>
+
+                            {/* Daftar Status & Warna */}
+                            <div className="space-y-3 text-xs font-bold text-white text-center">
+                                <div className="bg-[#facc15] py-2 rounded text-slate-900 border border-yellow-400">111 Kavling</div>
+                                <div className="bg-orange-500 py-2 rounded">0 Pembangunan</div>
+                                <div className="bg-green-500 py-2 rounded">0 Ready Stock</div>
+                                <div className="bg-blue-500 py-2 rounded">4 Proses Bank</div>
+                                <div className="bg-red-600 py-2 rounded">0 Terjual</div>
+                            </div>
+                        </div>
+
+                        {/* Area Peta Siteplan Kanan */}
+                        <div className="w-full md:w-3/4 bg-white p-8 overflow-auto flex items-center justify-center min-h-[500px]">
+                            {/* SIMULASI GRID SITEPLAN (Kotak Kuning & Biru) */}
+                            <div className="grid grid-cols-6 gap-1 transform md:scale-125">
+                                {/* Blok A */}
+                                <div className="w-8 h-12 bg-yellow-400 border border-slate-400 cursor-pointer hover:opacity-80" title="Kavling Kosong"></div>
+                                <div className="w-8 h-12 bg-yellow-400 border border-slate-400 cursor-pointer hover:opacity-80" title="Kavling Kosong"></div>
+                                <div className="w-8 h-12 bg-yellow-400 border border-slate-400 cursor-pointer hover:opacity-80" title="Kavling Kosong"></div>
+                                <div className="col-span-1"></div> {/* Jalan */}
+                                <div className="w-8 h-12 bg-blue-500 border border-slate-400 cursor-pointer hover:opacity-80" title="Proses Bank"></div>
+                                <div className="w-8 h-12 bg-yellow-400 border border-slate-400 cursor-pointer hover:opacity-80" title="Kavling Kosong"></div>
+                                
+                                {/* Blok B */}
+                                <div className="w-8 h-12 bg-yellow-400 border border-slate-400 mt-4 cursor-pointer hover:opacity-80" title="Kavling Kosong"></div>
+                                <div className="w-8 h-12 bg-yellow-400 border border-slate-400 mt-4 cursor-pointer hover:opacity-80" title="Kavling Kosong"></div>
+                                <div className="w-8 h-12 bg-yellow-400 border border-slate-400 mt-4 cursor-pointer hover:opacity-80" title="Kavling Kosong"></div>
+                                <div className="col-span-1 mt-4"></div>
+                                <div className="w-8 h-12 bg-yellow-400 border border-slate-400 mt-4 cursor-pointer hover:opacity-80" title="Kavling Kosong"></div>
+                                <div className="w-8 h-12 bg-blue-500 border border-slate-400 mt-4 cursor-pointer hover:opacity-80" title="Proses Bank"></div>
+                            </div>
+                            {/* Keterangan: Nanti Anda bisa mengganti kotak-kotak di atas dengan gambar peta asli atau menggunakan Leaflet.js/Canvas jika ingin interaktif sungguhan */}
+                        </div>
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 }
